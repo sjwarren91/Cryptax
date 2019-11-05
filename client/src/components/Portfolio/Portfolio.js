@@ -13,8 +13,8 @@ class Portfolio extends Component {
   }
 
   getHoldings = () => {
-    API.getHoldings().then(data => {
-        console.log(data);
+    API.getHoldings().then(res => {
+        console.log(res.data.balances);
     }).catch(err => {
         console.log(err)
     })

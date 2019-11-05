@@ -19,17 +19,6 @@ export default {
   },
 
   getHoldings: () => {
-    const timestamp = Date.now();
-    const hmac = crypto
-      .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
-      .update(`timestamp=${timestamp}`)
-      .digest("hex");
-    const queryString = `https://api.binance.com//api/v3/account?timestamp=${timestamp}&signature=${hmac}`;
-
-    return axios.get(queryString, {
-      headers: {
-        "X-MBX-APIKEY": process.env.REACT_APP_API_KEY
-      }
-    });
+    return axios.get("/api/holdings")
   }
 };
