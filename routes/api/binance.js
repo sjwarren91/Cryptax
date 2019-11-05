@@ -3,7 +3,6 @@ const axios = require("axios");
 const crypto = require("crypto");
 
 router.route("/holdings").get((req, res) => {
-  console.log(process.env.REACT_APP_SECRET_KEY);
   const timestamp = Date.now();
   const hmac = crypto
     .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)

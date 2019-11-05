@@ -15,6 +15,10 @@ class Portfolio extends Component {
   getHoldings = () => {
     API.getHoldings().then(res => {
         console.log(res.data.balances);
+        const filtered = res.data.balances.filter(coin => coin.free > 0)
+        this.setState({
+          holdings: filtered
+        })
     }).catch(err => {
         console.log(err)
     })
@@ -26,7 +30,12 @@ class Portfolio extends Component {
         <div className="container">
           <div className="title">Main Portfolio</div>
           <Table>
-            <TableItem coin="coin" price="price" holding="holdings" />
+            {this.state.holdings.length ? 
+            this.state.holdings.map(coin => {
+              return <TableItem coin={coin.asset} price="$$$" holding={coin.free} />
+            }) : 
+            <div>No Coins</div>
+          }
           </Table>
         </div>
       </>

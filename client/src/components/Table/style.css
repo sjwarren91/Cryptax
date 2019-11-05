@@ -9,8 +9,12 @@ table {
     font-weight: bolder;;
 }
 
+thead tr {
+    display: block;
+}
+
 .tcol {
-    width: 33%;
+    width: 150px;
     text-align: left;
     font-weight: bolder;
 }
@@ -18,6 +22,13 @@ table {
 tbody td {
     border-bottom: 1px solid #5C6788;
     color: #fff;
+    width: 150px;
+}
+
+tbody {
+    display: block;
+    overflow: auto;
+    height: 110px;
 }
 
 

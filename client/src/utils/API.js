@@ -3,7 +3,6 @@ const crypto = require("crypto");
 
 export default {
   getCoinTrades: coin => {
-    console.log(process.env.REACT_APP_SECRET_KEY)
     const timestamp = Date.now();
     const hmac = crypto
       .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
