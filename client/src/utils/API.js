@@ -1,7 +1,9 @@
 import axios from "axios";
+const crypto = require("crypto");
 
 export default {
   getCoinTrades: coin => {
+    console.log(process.env.REACT_APP_SECRET_KEY)
     const timestamp = Date.now();
     const hmac = crypto
       .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
@@ -22,7 +24,7 @@ export default {
       .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
       .update(`timestamp=${timestamp}`)
       .digest("hex");
-    const queryString = `https://api.binance.com//api/v3/account?timestamp${timestamp}&signature=${hmac}`;
+    const queryString = `https://api.binance.com//api/v3/account?timestamp=${timestamp}&signature=${hmac}`;
 
     return axios.get(queryString, {
       headers: {

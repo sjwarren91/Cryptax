@@ -8,7 +8,17 @@ class Portfolio extends Component {
     holdings: []
   };
 
-  
+  componentDidMount() {
+    this.getHoldings();
+  }
+
+  getHoldings = () => {
+    API.getHoldings().then(data => {
+        console.log(data);
+    }).catch(err => {
+        console.log(err)
+    })
+  }
 
   render() {
     return (
