@@ -1,34 +1,34 @@
-table {
+.holdings-table {
     width: 100%;
-    border-spacing: 0px;
+    display: flex;
+    flex-direction: column;;
 }
 
-.table-head, thead {
-    height: 60px;
-    color: #5C6788;
-    font-weight: bolder;;
-}
-
-thead tr {
-    display: block;
+.holdings-table-head {
+    display: flex;
+    color: #5F6D94;
+    padding: 15px 0px 15px 0px;
 }
 
 .tcol {
-    width: 150px;
-    text-align: left;
-    font-weight: bolder;
+    width: 33%;
 }
 
-tbody td {
-    border-bottom: 1px solid #5C6788;
+.holdings-table-body {
+    height: 125px;
     color: #fff;
-    width: 150px;
+    overflow-y: auto;
 }
 
-tbody {
-    display: block;
-    overflow: auto;
-    height: 110px;
+.table-row {
+    display: flex;
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    border-bottom: 1px solid #5F6D94;
 }
 
+.table-data {
+    width: 33%;
+    
+}
 

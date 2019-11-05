@@ -3,27 +3,36 @@ import "./style.css";
 
 export function Table({ children }) {
   return (
-    <div className="table-container">
-      <table className="holdings">
-        <thead>
-          <tr className="table-head">
-            <th className="tcol">Coin</th>
-            <th className="tcol">Price</th>
-            <th className="tcol">Holding</th>
-          </tr>
-        </thead>
-        <tbody>{children}</tbody>
-      </table>
-    </div>
+      <div className="holdings-table">
+        <div className="holdings-table-head">
+          <div className="tcol">Coin</div>
+          <div className="tcol">Price</div>
+          <div className="tcol">Holding</div>
+        </div>
+        <div className="holdings-table-body">
+          {children}
+        </div>
+      </div>
   );
 }
 
 export function TableItem(props) {
   return (
-    <tr>
-      <td>{props.coin}</td>
-      <td>{props.price}</td>
-      <td>{props.holding}</td>
-    </tr>
+    <div className="table-row">
+      <div className="table-data">{props.coin}</div>
+      <div className="table-data">{props.price}</div>
+      <div className="table-data">{props.holding}</div>
+    </div>
   );
 }
+
+// <table className="holdings">
+//         <thead>
+//           <tr className="table-head">
+//             <th className="tcol">Coin</th>
+//             <th className="tcol">Price</th>
+//             <th className="tcol">Holding</th>
+//           </tr>
+//         </thead>
+//         <tbody>{children}</tbody>
+//       </table>
