@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+    border-spacing: 0px;
+}
+
+.table-head, thead {
+    height: 60px;
+    color: #5C6788;
+    font-weight: bolder;;
+}
+
+.tcol {
+    width: 33%;
+    text-align: left;
+    font-weight: bolder;
+}
+
+tbody td {
+    border-bottom: 1px solid #5C6788;
+    color: #fff;
+}
+
+
