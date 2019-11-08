@@ -19,5 +19,13 @@ export default {
 
   getHoldings: () => {
     return axios.get("/api/holdings")
+  }, 
+
+  getCoinPrice: (coin) => {
+    return axios.get(`/api/currentPrice/${coin}`)
+  },
+
+  getTrades: () => {
+    return axios.post("/api/trades")
   }
 };

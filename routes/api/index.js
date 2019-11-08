@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const bookRoutes = require("./binance");
+const binanceRoutes = require("./binance");
 
 // Book routes
-router.use("", bookRoutes);
+router.use("", binanceRoutes);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Portfolio from "./components/Portfolio/Portfolio"
+import Portfolio from "./components/Portfolio/Portfolio";
+import Tax from "./components/Tax/index";
 import "./App.css";
 
 class App extends Component {
@@ -11,7 +12,9 @@ class App extends Component {
             <div className="col1">
               <Portfolio />
             </div>
-            <div className="col2"></div>
+            <div className="col2">
+              <Tax />
+            </div>
           </div>
           <div className="row2">
             <div className="col2"></div>

@@ -17,7 +17,6 @@
 .holdings-table-body {
     height: 125px;
     color: #fff;
-    overflow-y: auto;
 }
 
 .table-row {
