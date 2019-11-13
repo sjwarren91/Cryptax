@@ -39,6 +39,14 @@ router.route("/currentPrice/:coin").get((req, res) => {
     .catch(err => res.json(err));
 });
 
+router.route("/historicPrice").post((req, res) => {
+  let queryString = `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=1&startTime=${req.body.time}`;
+  axios
+    .get(queryString)
+    .then(data => res.json(data.data))
+    .catch(err => res.json(err));
+});
+
 router.route("/trades").post((req, res) => {
   const timestamp = Date.now();
   const hmac = crypto

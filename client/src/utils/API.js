@@ -27,5 +27,9 @@ export default {
 
   getTrades: () => {
     return axios.post("/api/trades")
+  },
+
+  getHistoricPrice: (time) => {
+    return axios.post("/api/historicPrice", {time: time})
   }
 };
