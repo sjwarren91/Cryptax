@@ -25,11 +25,19 @@ export default {
     return axios.get(`/api/currentPrice/${coin}`)
   },
 
-  getTrades: () => {
-    return axios.post("/api/trades")
+  getTrades: (coin) => {
+    return axios.post("/api/trades", { coin: coin })
   },
 
   getHistoricPrice: (time) => {
-    return axios.post("/api/historicPrice", {time: time})
+    return axios.post("/api/historicPrice", { time: time })
+  },
+
+  getDeposits: (coin) => {
+    return axios.post("/api/deposits", { coin: coin })
+  },
+
+  getWithdrawals: (coin) => {
+    return axios.post("/api/withdrawals", { coin: coin })
   }
 };

@@ -51,10 +51,10 @@ router.route("/trades").post((req, res) => {
   const timestamp = Date.now();
   const hmac = crypto
     .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
-    .update(`symbol=NEBLBTC&timestamp=${timestamp}`)
+    .update(`symbol=${req.body.coin}BTC&timestamp=${timestamp}`)
     .digest("hex");
-
-  let queryString = `https://api.binance.com/api/v3/myTrades?symbol=NEBLBTC&timestamp=${timestamp}&signature=${hmac}`;
+  console.log(req.body);
+  let queryString = `https://api.binance.com/api/v3/myTrades?symbol=${req.body.coin}BTC&timestamp=${timestamp}&signature=${hmac}`;
   axios
     .get(queryString, {
       headers: {
@@ -68,6 +68,46 @@ router.route("/trades").post((req, res) => {
       console.log(err);
       res.json(err);
     });
+});
+
+router.route("/deposits").post((req, res) => {
+  const timestamp = Date.now();
+  const hmac = crypto
+    .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
+    .update(`asset=${req.body.coin}&timestamp=${timestamp}`)
+    .digest("hex");
+  let queryString = `https://api.binance.com/wapi/v3/depositHistory.html?asset=${req.body.coin}&timestamp=${timestamp}&signature=${hmac}`;
+  axios.get(queryString, {
+    headers: {
+      "X-MBX-APIKEY": process.env.REACT_APP_API_KEY
+    }
+  }).then(data => {
+    console.log(data.data)
+    res.json(data.data)
+  }).catch(err => {
+    console.log(err);
+    res.json(err);
+  });
+});
+
+router.route("/withdrawals").post((req, res) => {
+  const timestamp = Date.now();
+  const hmac = crypto
+    .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
+    .update(`asset=${req.body.coin}&timestamp=${timestamp}`)
+    .digest("hex");
+  let queryString = `https://api.binance.com/wapi/v3/withdrawHistory.html?asset=${req.body.coin}&timestamp=${timestamp}&signature=${hmac}`;
+  axios.get(queryString, {
+    headers: {
+      "X-MBX-APIKEY": process.env.REACT_APP_API_KEY
+    }
+  }).then(data => {
+    console.log(data.data)
+    res.json(data.data)
+  }).catch(err => {
+    console.log(err);
+    res.json(err);
+  });
 });
 
 module.exports = router;
