@@ -63,6 +63,35 @@ class Portfolio extends Component {
       
   };
 
+  formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
+    try {
+      decimalCount = Math.abs(decimalCount);
+      decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+      const negativeSign = amount < 0 ? "-" : "";
+
+      let i = parseInt(
+        (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
+      ).toString();
+      let j = i.length > 3 ? i.length % 3 : 0;
+
+      return (
+        negativeSign +
+        "$" +
+        (j ? i.substr(0, j) + thousands : "") +
+        i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
+        (decimalCount
+          ? decimal +
+            Math.abs(amount - i)
+              .toFixed(decimalCount)
+              .slice(2)
+          : "")
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   render() {
     return (
       <>
@@ -75,7 +104,7 @@ class Portfolio extends Component {
                   <TableItem
                     key={coin.asset}
                     coin={coin.asset}
-                    price={(coin.price && this.state.btc) ? (parseFloat(coin.price) * this.state.btc * coin.free).toFixed(2) : "..."}
+                    price={(coin.price && this.state.btc) ? this.formatMoney((parseFloat(coin.price) * this.state.btc * coin.free)) : "..."}
                     holding={coin.free}
                   />
                 );

@@ -14,9 +14,18 @@
     width: 33%;
 }
 
+.simplebar-scrollbar:before {
+    background: linear-gradient(to top, rgb(156, 197, 255), #64A3FE) !important;
+}
+
+.simplebar-scrollbar.simplebar-visible:before {
+    opacity: 1 !important;
+}
+
 .holdings-table-body {
     height: 125px;
     color: #fff;
+    font-size: 8pt;
 }
 
 .table-row {

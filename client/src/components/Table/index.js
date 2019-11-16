@@ -11,7 +11,7 @@ export function Table({ children }) {
         <div className="tcol">Price</div>
         <div className="tcol">Holding</div>
       </div>
-      <SimpleBarReact forceVisible="y" style={{ height: '125px' }}>
+      <SimpleBarReact classNames="simplebar-scrollbar" forceVisible="y" style={{ height: '125px' }}>
         <div className="holdings-table-body">{children}</div>
       </SimpleBarReact>
     </div>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
+import "./style.css";
 
 class Tax extends Component {
   state = {
@@ -17,13 +18,22 @@ class Tax extends Component {
         return this.getCoinTrades(coin.asset);
       })
     );
-    console.log(data);
+    let profitSum = 0;
+    for (const profit of data) {
+      if (profit) {
+        profitSum += profit;
+      }
+    }
+    this.setState({
+      profit: this.formatMoney(profitSum)
+    });
+
+    console.log(this.state.profit);
   };
 
   getHoldings = () => {
     API.getHoldings()
       .then(res => {
-        // console.log(res.data.balances);
         const filtered = res.data.balances
           .map(obj => {
             var rObj = obj;
@@ -36,6 +46,7 @@ class Tax extends Component {
           holdings: filtered
         });
         console.log(this.state.holdings);
+        this.getCombinedTrades();
       })
       .catch(err => {
         console.log(err);
@@ -45,7 +56,6 @@ class Tax extends Component {
   getCoinTrades = coin => {
     return API.getTrades(coin)
       .then(data => {
-        console.log(data.data);
         if (data.data.length > 0) {
           return Promise.all(
             data.data.map(element => {
@@ -74,35 +84,28 @@ class Tax extends Component {
               let totalProfit = 0;
 
               for (const currentBuy of buys) {
-                // console.log(currentBuy)
                 for (const currentSell of sells) {
                   let profit = 0;
                   if (currentSell.time < currentBuy.time) {
                     //if buy time isnt before sell time => check next sell event
                     continue;
-                  } else if (currentSell.qty == 0) {
+                  } else if (currentSell.qty === 0) {
                     // if current sell quantity = 0 => check next sell event
                     continue;
                   } else if (currentBuy.qty <= currentSell.qty) {
+                    // if current buy quantity is less than or equal to current seel quantity
+                    // calc profit and update sells/buys
                     profit =
                       currentBuy.qty * currentSell.price - currentBuy.quoteQty;
-                    // console.log(currentSell.qty)
                     currentSell.qty -= currentBuy.qty;
-
-                    // console.log("Buy: " + currentBuy.qty);
-                    // console.log("Sell: " + currentSell.qty);
 
                     totalProfit += profit;
                     break;
                   } else if (currentBuy.qty > currentSell.qty) {
                     profit =
                       currentBuy.qty * currentSell.price - currentBuy.quoteQty;
-                    // console.log(currentSell.qty);
                     currentBuy.qty -= currentSell.qty;
                     currentSell.qty -= currentSell.qty;
-
-                    // console.log("Buy: " + currentBuy.qty);
-                    // console.log("Sell: " + currentSell.qty);
 
                     totalProfit += profit;
                     continue;
@@ -110,67 +113,54 @@ class Tax extends Component {
                 }
               }
 
-              console.log("Total Profit " + totalProfit);
               return totalProfit;
             })
             .catch(err => console.log(err));
         }
       })
       .catch(err => console.log(err));
-
-    // return totalProfit;
-
-    // console.log(buys)
-    // console.log(sells)
-
-    // Promise.all(
-    //   data.data.map(element => {
-    //     // console.log(element.qty);
-    //     return API.getHistoricPrice(element.time).then(data => {
-    //       let sum = 0;
-    //       let qty = 0;
-
-    //       if (element.isBuyer) {
-    //         // console.log(element.price, element.qty, data.data[0][3]);
-    //         if(!testBuy[element.price]) {
-    //           testBuy[element.price] = 0;
-    //         }
-    //         testBuy[element.price] += parseFloat(element.qty);
-
-    //         qty = parseFloat(element.qty)
-    //         qtyBought += qty;
-    //         sum = element.price * element.qty * data.data[0][3];
-    //         totalBought += sum;
-    //         // console.log("total Bought: " + totalBought)
-    //       } else {
-    //         if(!testSold[element.price]) {
-    //           testSold[element.price] = 0;
-    //         }
-    //         testSold[element.price] += parseFloat(element.qty);
-
-    //         qty = parseFloat(element.qty)
-    //         qtySold += qty;
-    //         sum = element.price * element.qty * data.data[0][3];
-    //         totalSold += sum;
-    //         // console.log("total sold: " + totalSold)
-    //       }
-    //     });
-    //   })
-    // ).then(() => {
-    //   // console.log(totalBought, "qty: " + qtyBought.toFixed(2))
-    //   // console.log(totalSold, "qty: " + qtySold.toFixed(2))
-    //   // console.log(testBuy)
-    //   // console.log(testSold)
-    // });
   };
+
+  formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
+    try {
+      decimalCount = Math.abs(decimalCount);
+      decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+      const negativeSign = amount < 0 ? "-" : "";
+
+      let i = parseInt(
+        (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
+      ).toString();
+      let j = i.length > 3 ? i.length % 3 : 0;
+
+      return (
+        negativeSign +
+        "$" +
+        (j ? i.substr(0, j) + thousands : "") +
+        i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
+        (decimalCount
+          ? decimal +
+            Math.abs(amount - i)
+              .toFixed(decimalCount)
+              .slice(2)
+          : "")
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   render() {
     return (
-      <div>
-        <div className="trades">Trades</div>
-        <button onClick={() => this.getCoinTrades("ETH")}>Trade</button>
-        <button onClick={() => this.getCombinedTrades()}>Trades</button>
-        <button onClick={() => this.getWithdrawals()}>Withdrawals</button>
+      <div className="card-container">
+        <div className="title">Wallets</div>
+        <div className="card">
+          <div className="profit-title">Realised Gains</div>
+          <div className="profit-amount">
+            {this.state.profit ? this.state.profit : "Loading..."}
+          </div>
+          <div className="currency">USD</div>
+        </div>
       </div>
     );
   }
