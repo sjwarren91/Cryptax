@@ -51,11 +51,14 @@ class Portfolio extends Component {
     })).then(data => {
       data.forEach((element, i) => {
         if(array[i].asset === "BTC") {
-          array[i].price = 1;
+          array[i].price = 1 * this.state.btc * array[i].free;
         } else {
-          array[i].price = parseFloat(element.data.price);
+          array[i].price = parseFloat(element.data.price) * this.state.btc * array[i].free;
         }
       })
+      
+      array.sort((a, b) => b.price - a.price);
+
       this.setState({
         holdings: array
       })
@@ -104,7 +107,7 @@ class Portfolio extends Component {
                   <TableItem
                     key={coin.asset}
                     coin={coin.asset}
-                    price={(coin.price && this.state.btc) ? this.formatMoney((parseFloat(coin.price) * this.state.btc * coin.free)) : "..."}
+                    price={(coin.price && this.state.btc) ? this.formatMoney(coin.price) : "..."}
                     holding={coin.free}
                   />
                 );
