@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Portfolio from "./components/Portfolio/Portfolio";
 import Tax from "./components/Tax/index";
-import Summary from "./components/Chart/index"
+import Summary from "./components/Chart/index";
+import Kline from "./components/Kline/index"
 import "./App.css";
 
 class App extends Component {
@@ -21,7 +22,9 @@ class App extends Component {
             <div className="col2">
               <Summary />
             </div>
-            <div className="col1"></div>
+            <div className="col1">
+              <Kline />
+            </div>
           </div>
         </div>
       </>
