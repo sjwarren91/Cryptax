@@ -5,7 +5,6 @@ import "./Portfolio.css";
 
 class Portfolio extends Component {
   state = {
-    holdings: [],
     btc: 0
   };
 
@@ -25,9 +24,8 @@ class Portfolio extends Component {
           })
           .filter(coin => coin.free > 0);
 
-        this.setState({
-          holdings: filtered
-        });
+        this.props.onUpdateHoldings(filtered);
+
         this.getCoinPrice();
       })
       .catch(err => {
@@ -45,8 +43,8 @@ class Portfolio extends Component {
   };
 
   getCoinPrice = () => {
-    let array = this.state.holdings;
-    Promise.all(this.state.holdings.map(coin => {
+    let array = this.props.holdings;
+    Promise.all(this.props.holdings.map(coin => {
       return API.getCoinPrice(coin.asset)
     })).then(data => {
       data.forEach((element, i) => {
@@ -59,9 +57,7 @@ class Portfolio extends Component {
       
       array.sort((a, b) => b.price - a.price);
 
-      this.setState({
-        holdings: array
-      })
+      this.props.onUpdateHoldings(array);
     });
       
   };
@@ -101,8 +97,8 @@ class Portfolio extends Component {
         <div className="container">
           <div className="title">Main Portfolio</div>
           <Table>
-            {this.state.holdings.length ? (
-              this.state.holdings.map(coin => {
+            {this.props.holdings.length ? (
+              this.props.holdings.map(coin => {
                 return (
                   <TableItem
                     key={coin.asset}

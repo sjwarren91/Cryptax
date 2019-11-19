@@ -1,18 +1,34 @@
 import React, { Component } from "react";
-import Chart from "react-apexcharts"
+import Chart from "react-apexcharts";
 import API from "../../utils/API";
 
 class Kline extends Component {
   state = {
-    seriesCandle: [
-      {
-        data: [
-          [1538856000000, [6593.34, 6600, 6582.63, 6600]],
-          [1538856900000, [6595.16, 6604.76, 6590.73, 6593.86]]
-        ]
-      }
-    ],
-    chartOptionsCandlestick: {
+    data: []
+  };
+
+  getKline = () => {
+    API.getKlines("NEBLBTC").then(data => {
+        let array = []
+        data.data.forEach(candle => {
+            array.push([new Date(candle[0]), [candle[1], candle[2], candle[3], candle[4]]])
+        })
+
+        console.log(array)
+
+        this.setState({
+            data: array
+        })
+        
+    }).catch(err => console.log(err))
+  }
+
+  componentDidMount() {
+      this.getKline();
+  }
+
+  render() {
+    let options = {
       chart: {
         id: "candles",
         toolbar: {
@@ -33,35 +49,40 @@ class Kline extends Component {
       },
 
       xaxis: {
-          type: 'datetime',
-          labels: {
-              style: {
-                  colors: "#fff"
-              }
+        type: "datetime",
+        labels: {
+          style: {
+            colors: "#fff"
           }
+        }
       },
 
       yaxis: {
-          tooltip: {
-              enabled: true
-          },
-          labels: {
-              style: {
-                  color: "#fff"
-              }
+        tooltip: {
+          enabled: true
+        },
+        labels: {
+          style: {
+            color: "#fff"
           }
+        }
       }
-    }
-  };
-  render() {
+    };
+
+    let seriesCandle = [
+        {
+          data: this.state.data
+        }
+      ];
+
     return (
       <div>
-          <div className="title">Details</div>
+        <div className="title">Details</div>
         <div id="chart-box">
           <div id="chart-candlestick">
             <Chart
-              options={this.state.chartOptionsCandlestick}
-              series={this.state.seriesCandle}
+              options={options}
+              series={seriesCandle}
               type="candlestick"
               height={200}
             />

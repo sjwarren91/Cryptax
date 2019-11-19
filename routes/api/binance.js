@@ -47,6 +47,14 @@ router.route("/historicPrice").post((req, res) => {
     .catch(err => res.json(err));
 });
 
+router.route("/klines").post((req, res) => {
+  let queryString = `https://api.binance.com/api/v3/klines?symbol=${req.body.coin}&interval=4h&limit=40`;
+  axios
+    .get(queryString)
+    .then(data => res.json(data.data))
+    .catch(err => res.json(err));
+});
+
 router.route("/trades").post((req, res) => {
   const timestamp = Date.now();
   const hmac = crypto

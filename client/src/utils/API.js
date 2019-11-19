@@ -33,6 +33,10 @@ export default {
     return axios.post("/api/historicPrice", { time: time })
   },
 
+  getKlines: (coin) => {
+    return axios.post("/api/klines", { coin: coin })
+  },
+
   getDeposits: (coin) => {
     return axios.post("/api/deposits", { coin: coin })
   },
