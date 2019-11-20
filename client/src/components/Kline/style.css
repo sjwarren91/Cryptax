@@ -1,17 +1,18 @@
 #chart-box {
     max-width: 100%;
-    margin: 35px auto;
 }
 
 #chart-candlestick {
     max-width: 100%;
     height: 30vh;
+    font-size: 12pt;
 }
 
 .title-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .accuracy {
@@ -62,4 +63,5 @@
     #coin-search {
         width: 100px;
     }
+    
 }

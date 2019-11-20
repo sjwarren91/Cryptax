@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 class Summary extends Component {
+
   render() {
     let data = {
       labels: this.props.labels,
@@ -15,18 +16,32 @@ class Summary extends Component {
       ],
     };
 
+    let legend = {};
+
+    if (this.props.height > 650 ) {
+      legend = {
+        labels: {
+          fontSize: 16,
+          fontColor: "#fff",
+          boxWidth: 30
+        }
+      }
+    } else {
+      legend = {
+        labels: {
+          fontSize: 11,
+          fontColor: "#fff",
+          boxWidth: 30
+        }
+      }
+    }
+
     return (
       <div className="container">
         <div className="title">Summary</div>
         <Doughnut
           data={data}
-          legend={{
-            labels: {
-              fontSize: 10,
-              fontColor: "#fff",
-              boxWidth: 30
-            }
-          }}
+          legend={legend}
         />
       </div>
     );

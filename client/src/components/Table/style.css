@@ -40,3 +40,9 @@
     
 }
 
+@media screen and (min-height: 650px) {
+    .holdings-table-body {
+        font-size: 12pt;
+    }
+}
+

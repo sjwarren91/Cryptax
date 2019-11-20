@@ -44,22 +44,23 @@ class Portfolio extends Component {
 
   getCoinPrice = () => {
     let array = this.props.holdings;
-    Promise.all(this.props.holdings.map(coin => {
-      return API.getCoinPrice(coin.asset)
-    })).then(data => {
+    Promise.all(
+      this.props.holdings.map(coin => {
+        return API.getCoinPrice(coin.asset);
+      })
+    ).then(data => {
       data.forEach((element, i) => {
-        if(array[i].asset === "BTC") {
+        if (array[i].asset === "BTC") {
           array[i].price = 1 * this.state.btc * array[i].free;
         } else {
           array[i].price = parseFloat(element.data.price) * this.state.btc * array[i].free;
         }
-      })
-      
+      });
+
       array.sort((a, b) => b.price - a.price);
 
       this.props.onUpdateHoldings(array);
     });
-      
   };
 
   formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
@@ -69,9 +70,7 @@ class Portfolio extends Component {
 
       const negativeSign = amount < 0 ? "-" : "";
 
-      let i = parseInt(
-        (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
-      ).toString();
+      let i = parseInt((amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))).toString();
       let j = i.length > 3 ? i.length % 3 : 0;
 
       return (
@@ -96,14 +95,14 @@ class Portfolio extends Component {
       <>
         <div className="container">
           <div className="title">Main Portfolio</div>
-          <Table>
+          <Table width={this.props.width} height={this.props.height}>
             {this.props.holdings.length ? (
               this.props.holdings.map(coin => {
                 return (
                   <TableItem
                     key={coin.asset}
                     coin={coin.asset}
-                    price={(coin.price && this.state.btc) ? this.formatMoney(coin.price) : "..."}
+                    price={coin.price && this.state.btc ? this.formatMoney(coin.price) : "..."}
                     holding={coin.free}
                   />
                 );

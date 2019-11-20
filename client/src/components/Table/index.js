@@ -3,7 +3,7 @@ import "./style.css";
 import SimpleBarReact from "simplebar-react";
 import "simplebar/src/simplebar.css";
 
-export function Table({ children }) {
+export function Table({height, width, children }) {
   return (
     <div className="holdings-table">
       <div className="holdings-table-head">
@@ -11,7 +11,7 @@ export function Table({ children }) {
         <div className="tcol">Price</div>
         <div className="tcol">Holding</div>
       </div>
-      <SimpleBarReact classNames="simplebar-scrollbar" forceVisible="y" style={{ height: '125px' }}>
+      <SimpleBarReact classNames="simplebar-scrollbar" forceVisible="y" style={{height: height * 0.216 + 'px'}}>
         <div className="holdings-table-body">{children}</div>
       </SimpleBarReact>
     </div>
@@ -28,13 +28,3 @@ export function TableItem(props) {
   );
 }
 
-// <table className="holdings">
-//         <thead>
-//           <tr className="table-head">
-//             <th className="tcol">Coin</th>
-//             <th className="tcol">Price</th>
-//             <th className="tcol">Holding</th>
-//           </tr>
-//         </thead>
-//         <tbody>{children}</tbody>
-//       </table>

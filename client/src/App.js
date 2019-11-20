@@ -9,12 +9,29 @@ import "./App.css";
 class App extends Component {
 
   state = {
-    holdings: []
+    holdings: [],
+    width: window.innerWidth,
+    height: window.innerHeight
   };
 
   handleUpdateHoldings = (data) => {
     this.setState({
       holdings: data
+    })
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.updateWindowDimensions)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions = () => {
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerHeight
     })
   }
 
@@ -27,6 +44,8 @@ class App extends Component {
               <Portfolio 
               onUpdateHoldings={this.handleUpdateHoldings}
               holdings={this.state.holdings}
+              width={this.state.width}
+              height={this.state.height}
               />
             </div>
             <div className="col2">
@@ -46,6 +65,7 @@ class App extends Component {
               }).map(element => {
                 return parseInt(element.price)
               }): []}
+              height={this.state.height}
               />
             </div>
             <div className="col1">
