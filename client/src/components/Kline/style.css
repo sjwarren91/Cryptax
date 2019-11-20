@@ -63,5 +63,8 @@
     #coin-search {
         width: 100px;
     }
-    
+
+    #chart-box {
+        margin: 0px auto;
+    }
 }

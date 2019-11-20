@@ -35,17 +35,11 @@ class Tax extends Component {
     API.getHoldings()
       .then(res => {
         const filtered = res.data.balances
-          .map(obj => {
-            var rObj = obj;
-            rObj.free = parseFloat(parseFloat(obj.free).toFixed(2));
-            return rObj;
-          })
           .filter(coin => coin.free > 0);
-
+        console.log(filtered);
         this.setState({
           holdings: filtered
         });
-        console.log(this.state.holdings);
         this.getCombinedTrades();
       })
       .catch(err => {
