@@ -3,6 +3,7 @@ const axios = require("axios");
 const crypto = require("crypto");
 
 router.route("/holdings").get((req, res) => {
+  console.log(process.env.REACT_APP_SECRET_KEY)
   const timestamp = Date.now();
   const hmac = crypto
     .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
@@ -48,7 +49,7 @@ router.route("/historicPrice").post((req, res) => {
 });
 
 router.route("/klines").post((req, res) => {
-  let queryString = `https://api.binance.com/api/v3/klines?symbol=${req.body.coin}&interval=4h&limit=40`;
+  let queryString = `https://api.binance.com/api/v3/klines?symbol=${req.body.coin}&interval=${req.body.interval}&limit=40`;
   axios
     .get(queryString)
     .then(data => res.json(data.data))

@@ -4,7 +4,7 @@ import Tax from "./components/Tax/index";
 import Summary from "./components/Chart/index";
 import Kline from "./components/Kline/index"
 import "./App.css";
-import { parse } from "path";
+// import { parse } from "path";
 
 class App extends Component {
 
