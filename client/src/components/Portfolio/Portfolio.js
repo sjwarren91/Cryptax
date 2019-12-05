@@ -15,7 +15,7 @@ class Portfolio extends Component {
   getHoldings = () => {
     API.getHoldings()
       .then(res => {
-        console.log(res.data.balances);
+        // console.log(res.data.balances);
         const filtered = res.data.balances
           .map(obj => {
             var rObj = obj;

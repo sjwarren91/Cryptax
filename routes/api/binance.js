@@ -119,4 +119,8 @@ router.route("/withdrawals").post((req, res) => {
   });
 });
 
+router.route("/signup").post((req, res) => {
+  res.json(req.body);
+})
+
 module.exports = router;

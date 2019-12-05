@@ -1,9 +1,11 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-const session = require("express-session")
+const session = require("express-session");
+const passport = require("passport");
 const PORT = process.env.PORT || 3001;
-const routes = require("./routes");
+const apiRoutes = require("./routes/api");
+const authRoutes = require("./routes/auth")
 const app = express();
 require("dotenv").config();
 
@@ -26,9 +28,11 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+require("./config/passport")(passport);
 // Define API routes here
-app.use(routes);
+app.use("/user", authRoutes);
+app.use("/api", apiRoutes);
+
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
@@ -36,11 +40,11 @@ app.get("*", (req, res) => {
 });
 
 // Connect to MongoDB
-let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Cryptax"
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Cryptax";
 
-await mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-})
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true
+});
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

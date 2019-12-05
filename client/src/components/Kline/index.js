@@ -11,7 +11,7 @@ class Kline extends Component {
   };
 
   getKline = (coin, interval) => {
-    console.log(coin, interval)
+    // console.log(coin, interval)
     API.getKlines(coin, interval)
       .then(data => {
         let array = [];
@@ -19,7 +19,7 @@ class Kline extends Component {
           array.push([new Date(candle[0]), [candle[1], candle[2], candle[3], candle[4]]]);
         });
 
-        console.log(array);
+        // console.log(array);
 
         this.setState({
           data: array

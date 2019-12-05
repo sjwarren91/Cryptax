@@ -13,22 +13,24 @@ module.exports = function(passport) {
         passReqToCallback: true
       },
 
-      function(req, username, password, done) {
+      function(req, done) {
+        console.log(req.body)
+        console.log("here")
         var generateHash = password => {
           return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
         };
 
         db.User.findOne({
-          username: username
+          username: req.username
         }).then(user => {
           if (user) {
             return done(null, false, {
               message: "That username is already taken"
             });
           } else {
-            let userPassword = generateHash(password);
+            let userPassword = generateHash(req.password);
             let data = {
-              username: username,
+              username: req.username,
               password: userPassword
             };
 
