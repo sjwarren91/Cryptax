@@ -9,4 +9,11 @@ router.route("/signup").post(
   })
 );
 
+router.route("/signin").post(
+  passport.authenticate("local-signin", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/"
+  })
+);
+
 module.exports = router;

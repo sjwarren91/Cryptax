@@ -32,5 +32,10 @@ export default {
 
   signUp: (data) => {
     return axios.post("/user/signup", {data})
-  }
+  },
+
+  signIn: (data) => {
+    return axios.post("/user/signin", {data})
+  },
+
 };

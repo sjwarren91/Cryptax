@@ -64,10 +64,10 @@ module.exports = function(passport) {
 
       function(req, username, password, done) {
         var isValidPassword = function(userpass, password) {
-          return crypt.compareSync(password, userpass);
+          return bcrypt.compareSync(password, userpass);
         };
 
-        db.findOne({
+        db.User.findOne({
           username: username
         })
           .then(user => {
@@ -82,11 +82,12 @@ module.exports = function(passport) {
                 message: "Invalid password."
               });
             }
-
-            var userInfo = user.get();
-            return done(null, userInfo);
+            console.log(user);
+            // var userInfo = user.get();
+            return done(null, user);
           })
           .catch(err => {
+            console.log(err)
             console.log(`Error: ${err}`);
             return done(null, false, {
               message: "Something went wrong with your sign-in"
@@ -102,10 +103,10 @@ module.exports = function(passport) {
   });
 
   //deserialize instance
-  passport.deserializeUser((id, done) => {
-    db.User.findById(id).then(user => {
+  passport.deserializeUser((_id, done) => {
+    db.User.findById(_id).then(user => {
       if (user) {
-        done(null, user.get());
+        done(null, user);
       } else {
         done(user.errors, null);
       }
