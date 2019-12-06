@@ -3,7 +3,7 @@ const axios = require("axios");
 const crypto = require("crypto");
 
 router.route("/holdings").get((req, res) => {
-  console.log(process.env.REACT_APP_SECRET_KEY)
+  // console.log(process.env.REACT_APP_SECRET_KEY)
   const timestamp = Date.now();
   const hmac = crypto
     .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
@@ -33,7 +33,7 @@ router.route("/currentPrice/:coin").get((req, res) => {
   } else {
     queryString = `https://api.binance.com/api/v3/avgPrice?symbol=${req.params.coin}BTC`;
   }
-  console.log(queryString);
+  // console.log(queryString);
   axios
     .get(queryString)
     .then(data => res.json(data.data))
@@ -62,7 +62,7 @@ router.route("/trades").post((req, res) => {
     .createHmac("sha256", process.env.REACT_APP_SECRET_KEY)
     .update(`symbol=${req.body.coin}BTC&timestamp=${timestamp}`)
     .digest("hex");
-  console.log(req.body);
+  // console.log(req.body);
   let queryString = `https://api.binance.com/api/v3/myTrades?symbol=${req.body.coin}BTC&timestamp=${timestamp}&signature=${hmac}`;
   axios
     .get(queryString, {
@@ -91,7 +91,7 @@ router.route("/deposits").post((req, res) => {
       "X-MBX-APIKEY": process.env.REACT_APP_API_KEY
     }
   }).then(data => {
-    console.log(data.data)
+    // console.log(data.data)
     res.json(data.data)
   }).catch(err => {
     console.log(err);
@@ -111,7 +111,7 @@ router.route("/withdrawals").post((req, res) => {
       "X-MBX-APIKEY": process.env.REACT_APP_API_KEY
     }
   }).then(data => {
-    console.log(data.data)
+    // console.log(data.data)
     res.json(data.data)
   }).catch(err => {
     console.log(err);

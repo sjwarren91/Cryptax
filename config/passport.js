@@ -13,24 +13,24 @@ module.exports = function(passport) {
         passReqToCallback: true
       },
 
-      function(req, done) {
+      function(req, username, password, done) {
         console.log(req.body)
-        console.log("here")
-        var generateHash = password => {
+        console.log("here");
+        var generateHash = (password) => {
           return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
         };
 
         db.User.findOne({
-          username: req.username
+          username: req.body.username
         }).then(user => {
           if (user) {
             return done(null, false, {
               message: "That username is already taken"
             });
           } else {
-            let userPassword = generateHash(req.password);
+            let userPassword = generateHash(req.body.password);
             let data = {
-              username: req.username,
+              username: req.body.username,
               password: userPassword
             };
 
@@ -42,6 +42,11 @@ module.exports = function(passport) {
               }
             });
           }
+        }).catch(err => {
+          console.log(`Error: ${err}`)
+          return done(null, false, {
+            message: "Something went wrong with your sign-up"
+          });
         });
       }
     )

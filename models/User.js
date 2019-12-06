@@ -6,14 +6,12 @@ var UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    minlength: 8,
+    minlength: 6,
     maxlength: 24
   },
   password: {
     type: String,
     required: true,
-    minlength: 8,
-    maxlength: 24
   }
 });
 
