@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table, TableItem } from "../Table/index";
 import API from "../../utils/API";
-import "./Portfolio.css";
+import "./style.css";
 
 class Portfolio extends Component {
   state = {
@@ -53,7 +53,8 @@ class Portfolio extends Component {
         if (array[i].asset === "BTC") {
           array[i].price = 1 * this.state.btc * array[i].free;
         } else {
-          array[i].price = parseFloat(element.data.price) * this.state.btc * array[i].free;
+          array[i].price =
+            parseFloat(element.data.price) * this.state.btc * array[i].free;
         }
       });
 
@@ -70,7 +71,9 @@ class Portfolio extends Component {
 
       const negativeSign = amount < 0 ? "-" : "";
 
-      let i = parseInt((amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))).toString();
+      let i = parseInt(
+        (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
+      ).toString();
       let j = i.length > 3 ? i.length % 3 : 0;
 
       return (
@@ -102,7 +105,11 @@ class Portfolio extends Component {
                   <TableItem
                     key={coin.asset}
                     coin={coin.asset}
-                    price={coin.price && this.state.btc ? this.formatMoney(coin.price) : "..."}
+                    price={
+                      coin.price && this.state.btc
+                        ? this.formatMoney(coin.price)
+                        : "..."
+                    }
                     holding={coin.free}
                   />
                 );

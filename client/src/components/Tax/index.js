@@ -28,7 +28,7 @@ class Tax extends Component {
       profit: this.formatMoney(profitSum)
     });
 
-    console.log(this.state.profit);
+    // console.log(this.state.profit);
   };
 
   getHoldings = () => {
@@ -144,20 +144,6 @@ class Tax extends Component {
     }
   }
 
-  clickHandler = () => {
-    let info = {
-      username: "sjwarren91",
-      password: "12345678"
-    }
-    console.log("before")
-    API.signUp(info).then(data => {
-      console.log("after")
-      console.log(data);
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-
   render() {
     return (
       <div className="card-container">
@@ -169,7 +155,6 @@ class Tax extends Component {
           </div>
           <div className="currency">USD</div>
         </div>
-        <button onClick={this.clickHandler}>Click Me Cunt</button>
       </div>
     );
   }
