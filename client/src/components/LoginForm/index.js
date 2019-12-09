@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import img from "../../images/login-banner.png"
 import "./style.css";
 
 class LoginForm extends Component {
@@ -6,13 +7,13 @@ class LoginForm extends Component {
     return (
       <div>
         <div className="contact-wrap flex">
-          <div className="contact-title intersect" data-animation="slideLeft">
-            {/* <img src="./assets/images/formimg.jpg" alt="" /> */}
-            <span className="section-header">Want to get in touch?</span>
+          <div className="contact-title">
+            <img src={img} className="title-img" alt="" />
+            <span className="section-header">CRYPTAX</span>
           </div>
           <form className="contact-form flex">
-            <div className="input-wrap intersect" data-animation="slideRight">
-              <label htmlFor="" className="input-label">
+            <div className="input-wrap">
+              <label className="input-label">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -32,14 +33,14 @@ class LoginForm extends Component {
               <input
                 className="form-input"
                 type="text"
-                name="name"
-                id="name"
-                placeholder="Full name"
+                name="username"
+                id="username"
+                placeholder="Username"
               />
             </div>
 
-            <div className="input-wrap intersect" data-animation="slideRight">
-              <label htmlFor="" className="input-label">
+            <div className="input-wrap">
+              <label className="input-label">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -47,10 +48,10 @@ class LoginForm extends Component {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#999999"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="feather feather-lock"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="feather feather-lock"
                 >
                   <rect
                     x="3"
@@ -66,9 +67,9 @@ class LoginForm extends Component {
               <input
                 className="form-input"
                 type="text"
-                name="email"
-                id="email"
-                placeholder="E.g example@email.com"
+                name="password"
+                id="password"
+                placeholder="Password"
               />
             </div>
 
