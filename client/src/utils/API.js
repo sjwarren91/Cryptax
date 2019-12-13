@@ -31,11 +31,15 @@ export default {
   },
 
   signUp: (data) => {
-    return axios.post("/user/signup", {data})
+    return axios.post("/signup", {data})
   },
 
   signIn: (data) => {
-    return axios.post("/user/signin", {data})
+    return axios.post("/signin", {data})
+  },
+
+  getUser: () => {
+    return axios.get("/user")
   },
 
 };

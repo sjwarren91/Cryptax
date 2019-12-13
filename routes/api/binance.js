@@ -21,7 +21,7 @@ router.route("/holdings").get((req, res) => {
       res.json(data.data);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
       res.json(err);
     });
 });
@@ -74,7 +74,7 @@ router.route("/trades").post((req, res) => {
       res.json(data.data);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
       res.json(err);
     });
 });
@@ -94,7 +94,7 @@ router.route("/deposits").post((req, res) => {
     // console.log(data.data)
     res.json(data.data)
   }).catch(err => {
-    console.log(err);
+    // console.log(err);
     res.json(err);
   });
 });
@@ -114,13 +114,9 @@ router.route("/withdrawals").post((req, res) => {
     // console.log(data.data)
     res.json(data.data)
   }).catch(err => {
-    console.log(err);
+    // console.log(err);
     res.json(err);
   });
 });
-
-router.route("/signup").post((req, res) => {
-  res.json(req.body);
-})
 
 module.exports = router;

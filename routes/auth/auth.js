@@ -5,15 +5,24 @@ const passport = require("passport")
 router.route("/signup").post(
   passport.authenticate("local-signup", {
     successRedirect: "/dashboard",
-    failureRedirect: "/"
+    failureRedirect: "/login"
   })
 );
 
 router.route("/signin").post(
   passport.authenticate("local-signin", {
     successRedirect: "/dashboard",
-    failureRedirect: "/"
+    failureRedirect: "/login"
   })
 );
+
+router.route("/user").get(function (req, res) {
+  console.log(req.user)
+  if (req.user) {
+    res.json({user: req.user})
+  } else {
+    res.json({user: null})
+  }
+})
 
 module.exports = router;
