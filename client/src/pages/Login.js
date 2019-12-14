@@ -5,7 +5,7 @@ class Login extends Component {
   render() {
     return (
       <>
-        <LoginForm />
+        <LoginForm getSession={this.props.getSession} />
       </>
     );
   }

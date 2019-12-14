@@ -4,14 +4,14 @@ const passport = require("passport")
 // route for creating a new user
 router.route("/signup").post(
   passport.authenticate("local-signup", {
-    successRedirect: "/dashboard",
+    successRedirect: "/",
     failureRedirect: "/login"
   })
 );
 
 router.route("/signin").post(
   passport.authenticate("local-signin", {
-    successRedirect: "/dashboard",
+    successRedirect: "/",
     failureRedirect: "/login"
   })
 );

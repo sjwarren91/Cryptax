@@ -82,7 +82,7 @@ module.exports = function(passport) {
                 message: "Invalid password."
               });
             }
-            // console.log(user);
+            console.log("Passport\n" , user);
             // var userInfo = user.get();
             return done(null, user);
           })

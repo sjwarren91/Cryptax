@@ -1,8 +1,32 @@
 import React, { Component } from "react";
-import img from "../../images/login-banner.png"
+import img from "../../images/login-banner.png";
+import API from "../../utils/API";
 import "./style.css";
 
 class LoginForm extends Component {
+  state = {
+    username: "",
+    password: ""
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    API.signIn({
+      username: this.state.username,
+      password: this.state.password
+    }).then(data => {
+      this.props.getSession();
+    });
+  };
+
   render() {
     return (
       <div>
@@ -36,6 +60,8 @@ class LoginForm extends Component {
                 name="username"
                 id="username"
                 placeholder="Username"
+                onChange={this.handleInputChange}
+                value={this.state.username}
               />
             </div>
 
@@ -66,18 +92,19 @@ class LoginForm extends Component {
               </label>
               <input
                 className="form-input"
-                type="text"
+                type="password"
                 name="password"
                 id="password"
                 placeholder="Password"
+                onChange={this.handleInputChange}
+                value={this.state.password}
               />
             </div>
 
             <div
               className="form-button-wrap intersect"
-              data-animation="slideUp"
             >
-              <button id="form-button">Submit</button>
+              <button id="form-button" onClick={this.handleFormSubmit}>Submit</button>
             </div>
           </form>
         </div>
