@@ -6,7 +6,8 @@ import "./style.css";
 class LoginForm extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    signup: false
   };
 
   handleInputChange = event => {
@@ -17,13 +18,20 @@ class LoginForm extends Component {
     });
   };
 
-  handleFormSubmit = event => {
+  handleLogin = event => {
     event.preventDefault();
     API.signIn({
       username: this.state.username,
       password: this.state.password
     }).then(data => {
       this.props.getSession();
+    });
+  };
+
+  handleSignup = event => {
+    event.preventDefault();
+    this.setState({
+      signup: true
     });
   };
 
@@ -100,11 +108,95 @@ class LoginForm extends Component {
                 value={this.state.password}
               />
             </div>
+            {this.state.signup ? (
+              <div className="details">
+                <div className="details-wrap">
+                  <label className="input-label">
+                    {/* <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#999999"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-lock"
+                    >
+                      <rect
+                        x="3"
+                        y="11"
+                        width="18"
+                        height="11"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg> */}
+                  </label>
+                  <input
+                    className="form-input"
+                    type="text"
+                    name="firstname"
+                    id="firstname"
+                    placeholder="First Name"
+                    onChange={this.handleInputChange}
+                    value={this.state.password}
+                  />
+                </div>
+                <div className="details-wrap">
+                  <label className="input-label">
+                    {/* <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#999999"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-lock"
+                    >
+                      <rect
+                        x="3"
+                        y="11"
+                        width="18"
+                        height="11"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg> */}
+                  </label>
+                  <input
+                    className="form-input"
+                    type="text"
+                    name="lastname"
+                    id="lastname"
+                    placeholder="Last Name"
+                    onChange={this.handleInputChange}
+                    value={this.state.password}
+                  />
+                </div>
+              </div>
+            ) : null}
 
-            <div
-              className="form-button-wrap intersect"
-            >
-              <button id="form-button" onClick={this.handleFormSubmit}>Submit</button>
+            <div className="button-group">
+              {!this.state.signup ? (
+                <div className="form-button-wrap intersect">
+                  <button id="form-button" onClick={this.handleLogin}>
+                    Log In
+                  </button>
+                </div>
+              ) : null}
+
+              <div className="form-button-wrap intersect">
+                <button id="form-button" onClick={this.handleSignup}>
+                  Sign Up
+                </button>
+              </div>
             </div>
           </form>
         </div>

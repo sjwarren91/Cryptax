@@ -22,10 +22,11 @@
 .card {
     min-width: 80%;
     max-width: 100%;
-    background-image: linear-gradient(to right, #679EFF, rgb(128, 119, 255));
+    /* background-image: linear-gradient(to right, #679EFF, rgb(128, 119, 255)); */
+    background-image: linear-gradient(to right, #047D93, #30AFAD);
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);
-    border: 1px solid #679EFF;
+    /* border: 1px solid #679EFF; */
     margin: 10px 25px 10px 25px;
     padding: 20px;
 }

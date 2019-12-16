@@ -49,6 +49,15 @@
     flex-direction: row;
 }
 
+.details-wrap {
+    width: 50%;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
 .form-input {
     display: block;
     width: 100%;
@@ -85,4 +94,16 @@ input {
     font-size: 12pt;
     padding-top: 25px;
     min-height: 160px;
+}
+
+.button-group {
+    display: flex;
+}
+
+.details {
+    display: flex;
+}
+
+.details-wrap:last-of-type {
+    margin-left: 10px
 }
