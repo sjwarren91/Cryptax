@@ -47,6 +47,7 @@
     margin-bottom: 15px;
     display: flex;
     flex-direction: row;
+    height: 55px;
 }
 
 .details-wrap {
@@ -56,6 +57,8 @@
     margin-bottom: 15px;
     display: flex;
     flex-direction: row;
+    height: 55px;
+    z-index: 99;
 }
 
 .form-input {
@@ -64,7 +67,6 @@
     font-size: 12pt;
     padding: 0 25px 0 10px;
     line-height: 1.2;
-    height: 55px;
 }
 
 .input-label {
@@ -100,10 +102,39 @@ input {
     display: flex;
 }
 
-.details {
-    display: flex;
-}
-
 .details-wrap:last-of-type {
     margin-left: 10px
+}
+
+.details {
+    display: flex;
+    opacity: 0;
+    height: 0;
+}
+
+.signup-enter {
+    opacity: 0;
+    height: 0;
+}
+
+.signup-enter-active {
+    opacity: 1;
+    height: 72px;
+    transition: opacity 1s, height 1s;
+}
+
+.signup-enter-done {
+    opacity: 1;
+    height: 72px;
+}
+
+.signup-exit {
+    opacity: 1;
+    height: 72px;
+}
+
+.signup-exit-active {
+    opacity: 0;
+    height: 0;
+    transition: opacity 1s, height 1s;
 }

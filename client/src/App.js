@@ -11,7 +11,6 @@ function App() {
   const getSession = () => {
     setLoading(false);
     API.getUser().then(response => {
-      console.log(response.data.user);
       if (response.data.user) {
         setIsLoggedIn(true);
       }
